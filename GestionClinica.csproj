@@ -9,10 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="application\adapters\input\" />
-    <Folder Include="application\usecases\" />
-    <Folder Include="domain\services\" />
-    <Folder Include="domain\ports\" />
     <Folder Include="infrastructure\database\" />
     <Folder Include="infrastructure\GUI\" />
   </ItemGroup>
