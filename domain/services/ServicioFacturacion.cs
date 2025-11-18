@@ -12,22 +12,27 @@ namespace GestionClinica.domain.services
         private const decimal VALOR_COPAGO = 50000m;
         private const decimal TOPE_ANUAL_COPAGO = 1000000m;
 
-        public decimal CalcularPagoPaciente(Paciente paciente, decimal costoTotalServicio)
+        public void CalcularTotalOrden(Orden orden)
         {
-            // Regla 1: Si la póliza NO está activa o vencida, paga el 100%
+            decimal costoRealServicios = orden.ValorTotalServicios;
+            Paciente paciente = orden.Paciente;
+
+            // Regla 1: Sin seguro o póliza inactiva -> Paga TODO [cite: 69]
             if (!paciente.TieneSeguroVigente())
             {
-                return costoTotalServicio;
+                orden.ValorCopagoPagar = costoRealServicios;
+                return;
             }
 
-            // Regla 2: Si tiene seguro, pero ya pagó más de 1 millón este año, paga 0
+            // Regla 2: Con seguro, pero superó el tope anual -> Paga $0 (Cubre la aseguradora) [cite: 68]
             if (paciente.AcumuladoCopagosAnio >= TOPE_ANUAL_COPAGO)
             {
-                return 0;
+                orden.ValorCopagoPagar = 0;
+                return;
             }
 
-            // Regla 3: Si tiene seguro y no ha superado el tope, paga el copago fijo
-            return VALOR_COPAGO;
+            // Regla 3: Con seguro normal -> Paga Copago ($50.000) [cite: 67]
+            orden.ValorCopagoPagar = VALOR_COPAGO;
         }
     }
 }
