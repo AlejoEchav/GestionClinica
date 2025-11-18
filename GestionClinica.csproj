@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="application\adapters\input\" />
+    <Folder Include="application\usecases\" />
+    <Folder Include="domain\services\" />
+    <Folder Include="domain\ports\" />
+    <Folder Include="infrastructure\database\" />
+    <Folder Include="infrastructure\GUI\" />
+  </ItemGroup>
+
+</Project>
